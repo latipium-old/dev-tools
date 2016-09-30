@@ -1,0 +1,28 @@
+{
+    "name": "latipium-dev-oauth",
+    "version": "1.0.0",
+    "description": "Runs the GUI for OAuth for the Latipium Development Tools",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/latipium/dev-tools.git"
+    },
+    "keywords": [
+        "latipium"
+    ],
+    "author": "Zach Deibert",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/latipium/dev-tools/issues"
+    },
+    "homepage": "https://latipium.com/",
+    "dependencies": {
+        "temp": "^0.8.3"
+    },
+    "devDependencies": {
+        "electron": "^1.4.2"
+    }
+}
