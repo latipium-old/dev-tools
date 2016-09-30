@@ -24,12 +24,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.IO;
+using System.Linq;
+using log4net;
+using NuGet;
 using Com.Latipium.DevTools.Main;
 
 namespace Com.Latipium.DevTools.Packaging {
     public static class Packager {
-        public static void Handle(CreatePackageVerb verb) {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Packager));
 
+        private static void PreprocessVerb(CreatePackageVerb verb) {
+            if (string.IsNullOrEmpty(verb.SpecFile)) {
+                verb.SpecFile = Directory.EnumerateFiles(".", "*.nuspec").First();
+            }
+            Directory.CreateDirectory(verb.OutputDirectory);
+        }
+
+        public static void Handle(CreatePackageVerb verb) {
+            PreprocessVerb(verb);
+            SpecTransformer spec = new SpecTransformer(verb.SpecFile, verb.Configuration);
+            Manifest manifest = Manifest.ReadFrom(spec.ParsedStream, true);
+            Log.DebugFormat("Building package {0} version {1}", manifest.Metadata.Id, manifest.Metadata.Version);
+            PackageBuilder builder = new PackageBuilder();
+            builder.Populate(manifest.Metadata);
+            builder.PopulateFiles(".", manifest.Files);
+            string filename = Path.Combine(verb.OutputDirectory, string.Format("{0}.{1}.nupkg", builder.Id, builder.Version));
+            Log.DebugFormat("Saving package to {0}", filename);
+            using (Stream stream = new FileStream(filename, FileMode.CreateNew)) {
+                builder.Save(stream);
+            }
         }
     }
 }

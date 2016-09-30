@@ -9,9 +9,7 @@
     <AssemblyName>Com.Latipium.DevTools</AssemblyName>
     <ReleaseVersion>1.0</ReleaseVersion>
     <Description>Tools needed for developing Latipium mods</Description>
-    <TargetFrameworkProfile />
     <StartupObject>Com.Latipium.DevTools.Main.Entry</StartupObject>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +20,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <Commandlineparameters>version --help</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -31,7 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <DocumentationFile>bin\Release\Com.Latipium.Template.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -45,17 +43,18 @@
     <DocumentationFile>bin\Prerelease\Com.Latipium.Template.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugSymbols>true</DebugSymbols>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="CommandLine">
-      <HintPath>packages\CommandLineParser.1.9.71\lib\net35\CommandLine.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>packages\log4net.2.0.5\lib\net35-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="Microsoft.Web.XmlTransform">
+      <HintPath>packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Core">
+      <HintPath>packages\NuGet.Core.2.12.0\lib\net40-Client\NuGet.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Tamir.SharpSSH">
       <HintPath>packages\Tamir.SharpSSH.1.1.1.13\lib\Tamir.SharpSSH.dll</HintPath>
     </Reference>
@@ -70,6 +69,12 @@
     </Reference>
     <Reference Include="GitSharp">
       <HintPath>packages\GitSharp.0.3\lib\GitSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>packages\log4net.2.0.5\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="CommandLine">
+      <HintPath>packages\CommandLineParser.1.9.71\lib\net40\CommandLine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +94,7 @@
     <Compile Include="Com\Latipium\DevTools\Authorizing\Authorizer.cs" />
     <Compile Include="Com\Latipium\DevTools\Versioning\GitVersion.cs" />
     <Compile Include="Com\Latipium\DevTools\Versioning\FileVersioner.cs" />
+    <Compile Include="Com\Latipium\DevTools\Packaging\SpecTransformer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -110,7 +116,6 @@
     <Folder Include="Com\Latipium\DevTools\Authorizing\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="logging.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -118,5 +123,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.nuspec" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

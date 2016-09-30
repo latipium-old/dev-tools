@@ -10,7 +10,7 @@
         <summary>Tools needed for developing Latipium mods</summary>
         <language>en-US</language>
         <projectUrl>https://latipium.com/</projectUrl>
-        <iconUrl></iconUrl>
+        <iconUrl>https://latipium.com/favicon.ico</iconUrl>
         <licenseUrl>https://latipium.com/license</licenseUrl>
         <copyright>Copyright (c) 2016 Zach Deibert</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -18,16 +18,17 @@
             <dependency id="log4net" version="2.0.5" />
             <dependency id="CommandLineParser" version="1.9.71" />
             <dependency id="GitSharp" version="0.3" />
+            <dependency id="NuGet.Core" version="2.12.0" />
         </dependencies>
         <frameworkAssemblies>
             <frameworkAssembly assemblyName="System" />
+            <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" />
             <frameworkAssembly assemblyName="System.Xml" />
         </frameworkAssemblies>
         <tags>Latipium Development Non-Mod</tags>
     </metadata>
     <files>
         <file src="bin/{{ configuration }}/Com.Latipium.DevTools.exe" target="bin" />
-        <file src="bin/{{ configuration }}/Com.Latipium.DevTools.exe.config" target="bin" />
         <file src="bin/{{ configuration }}/logging.xml" target="etc" />
         <file src="bin/{{ configuration }}/logging-verbose.xml" target="etc" />
     </files>
