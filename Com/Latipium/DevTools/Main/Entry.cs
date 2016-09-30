@@ -70,6 +70,7 @@ namespace Com.Latipium.DevTools.Main {
             if (success) {
                 InitializeLogging();
                 if (!ShowHelpIfNeeded()) {
+                    Environment.CurrentDirectory = Options.WorkingDirectory;
                     if (Options is CalculateVersionVerb) {
                         Versioner.Handle((CalculateVersionVerb) Options);
                     } else if (Options is CreatePackageVerb) {
