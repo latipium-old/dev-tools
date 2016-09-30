@@ -92,5 +92,6 @@
     <None Include="logging-verbose.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="app.nuspec" />
   </ItemGroup>
 </Project>
