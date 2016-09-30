@@ -56,6 +56,21 @@
       <HintPath>packages\log4net.2.0.5\lib\net35-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="Tamir.SharpSSH">
+      <HintPath>packages\Tamir.SharpSSH.1.1.1.13\lib\Tamir.SharpSSH.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Winterdom.IO.FileMap">
+      <HintPath>packages\Winterdom.IO.FileMap.2.0.2.0\lib\Winterdom.IO.FileMap.dll</HintPath>
+    </Reference>
+    <Reference Include="GitSharp.Core">
+      <HintPath>packages\GitSharp.0.3\lib\GitSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GitSharp">
+      <HintPath>packages\GitSharp.0.3\lib\GitSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -72,6 +87,8 @@
     <Compile Include="Com\Latipium\DevTools\Packaging\Packager.cs" />
     <Compile Include="Com\Latipium\DevTools\Publishing\Publisher.cs" />
     <Compile Include="Com\Latipium\DevTools\Authorizing\Authorizer.cs" />
+    <Compile Include="Com\Latipium\DevTools\Versioning\GitVersion.cs" />
+    <Compile Include="Com\Latipium\DevTools\Versioning\FileVersioner.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

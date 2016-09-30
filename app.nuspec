@@ -17,6 +17,7 @@
         <dependencies>
             <dependency id="log4net" version="2.0.5" />
             <dependency id="CommandLineParser" version="1.9.71" />
+            <dependency id="GitSharp" version="0.3" />
         </dependencies>
         <frameworkAssemblies>
             <frameworkAssembly assemblyName="System" />

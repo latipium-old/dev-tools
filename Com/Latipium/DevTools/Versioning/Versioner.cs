@@ -24,12 +24,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Linq;
+using log4net;
 using Com.Latipium.DevTools.Main;
 
 namespace Com.Latipium.DevTools.Versioning {
     public static class Versioner {
-        public static void Handle(CalculateVersionVerb verb) {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Versioner));
 
+        public static void Handle(CalculateVersionVerb verb) {
+            if (Log.IsDebugEnabled) {
+                Log.DebugFormat("Entering versioner verb with parameters gitDir={0}, files={1}", verb.GitDir, verb.Files.Aggregate((a,
+                                                                                                                                b) => a + ", " + b));
+            }
+            GitVersion version = new GitVersion(verb.GitDir);
+            foreach (string filename in verb.Files) {
+                FileVersioner file = new FileVersioner(filename, version.Version);
+                if (file.Exists) {
+                    Log.DebugFormat("Replacing old version of file {0} with version {1}", filename, version);
+                    file.ReplaceAll();
+                } else {
+                    Log.DebugFormat("Creating file {0} with new version information", filename);
+                    file.Create();
+                }
+            }
         }
     }
 }
