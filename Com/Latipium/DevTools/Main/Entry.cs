@@ -28,6 +28,10 @@ using System.IO;
 using CommandLine;
 using log4net;
 using log4net.Config;
+using Com.Latipium.DevTools.Authorizing;
+using Com.Latipium.DevTools.Packaging;
+using Com.Latipium.DevTools.Publishing;
+using Com.Latipium.DevTools.Versioning;
 
 namespace Com.Latipium.DevTools.Main {
     public static class Entry {
@@ -66,7 +70,17 @@ namespace Com.Latipium.DevTools.Main {
             if (success) {
                 InitializeLogging();
                 if (!ShowHelpIfNeeded()) {
-                    Log.Info("Starting dev tools");
+                    if (Options is CalculateVersionVerb) {
+                        Versioner.Handle((CalculateVersionVerb) Options);
+                    } else if (Options is CreatePackageVerb) {
+                        Packager.Handle((CreatePackageVerb) Options);
+                    } else if (Options is PublishVerb) {
+                        Publisher.Handle((PublishVerb) Options);
+                    } else if (Options is AuthorizeCIVerb) {
+                        Authorizer.Handle((AuthorizeCIVerb) Options);
+                    } else {
+                        Log.Fatal("Internal Error");
+                    }
                 }
                 return 0;
             } else {

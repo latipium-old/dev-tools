@@ -68,6 +68,10 @@
     <Compile Include="Com\Latipium\DevTools\Model\RunConfiguration.cs" />
     <Compile Include="Com\Latipium\DevTools\Main\PublishVerb.cs" />
     <Compile Include="Com\Latipium\DevTools\Main\AuthorizeCIVerb.cs" />
+    <Compile Include="Com\Latipium\DevTools\Versioning\Versioner.cs" />
+    <Compile Include="Com\Latipium\DevTools\Packaging\Packager.cs" />
+    <Compile Include="Com\Latipium\DevTools\Publishing\Publisher.cs" />
+    <Compile Include="Com\Latipium\DevTools\Authorizing\Authorizer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -83,6 +87,10 @@
     <Folder Include="Com\Latipium\DevTools\" />
     <Folder Include="Com\Latipium\DevTools\Main\" />
     <Folder Include="Com\Latipium\DevTools\Model\" />
+    <Folder Include="Com\Latipium\DevTools\Versioning\" />
+    <Folder Include="Com\Latipium\DevTools\Packaging\" />
+    <Folder Include="Com\Latipium\DevTools\Publishing\" />
+    <Folder Include="Com\Latipium\DevTools\Authorizing\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
