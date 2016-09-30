@@ -1,2 +1,2 @@
-# Latipium Mod Template
-This repository is an outline for mods developed for Latipium.
+# Latipium Development Tools
+This repository contains the tools needed for developing Latipium mods.

@@ -1,5 +1,5 @@
 ﻿//
-// AssemblyInfo.cs
+// CalculateVersionVerb.cs
 //
 // Author:
 //       Zach Deibert <zachdeibert@gmail.com>
@@ -23,24 +23,28 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+using System;
+using System.Collections.Generic;
+using CommandLine;
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
+namespace Com.Latipium.DevTools.Main {
+    public class CalculateVersionVerb : CommonOptions {
+        [ValueList(typeof(List<string>))]
+        public IList<string> Files {
+            get;
+            set;
+        }
 
-[assembly: AssemblyTitle("Com.Latipium.DevTools")]
-[assembly: AssemblyDescription("Tools needed for developing Latipium mods")]
-[assembly: AssemblyCompany("Latipium")]
-[assembly: AssemblyProduct("Latipium Development Tools")]
-[assembly: AssemblyCopyright("Zach Deibert")]
-[assembly: AssemblyVersion("1.0.*")]
+        [Option('g', "gitDir", HelpText="The directory of the git repository")]
+        public string GitDir {
+            get;
+            set;
+        }
 
-#if DEBUG
-[assembly: AssemblyConfiguration("Debug")]
-#elif BETA
-[assembly: AssemblyConfiguration("Release (Beta)")]
-#else
-[assembly: AssemblyConfiguration("Release")]
-#endif
+        public CalculateVersionVerb() {
+            CommandLineFormat = "[option [option ...]] [file [file ...]]";
+            GitDir = ".git";
+        }
+    }
+}
 
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]

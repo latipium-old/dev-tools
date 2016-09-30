@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Latipium.Template", "Com.Latipium.Template.csproj", "{78523371-9E06-4734-B1FA-B66FC4576EE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Latipium.DevTools", "Com.Latipium.DevTools.csproj", "{78523371-9E06-4734-B1FA-B66FC4576EE6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38F41F95-B426-4BFC-A887-0EE62F8D5344}"
 	ProjectSection(SolutionItems) = preProject

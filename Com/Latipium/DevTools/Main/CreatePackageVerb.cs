@@ -1,5 +1,5 @@
 ﻿//
-// AssemblyInfo.cs
+// CreatePackageVerb.cs
 //
 // Author:
 //       Zach Deibert <zachdeibert@gmail.com>
@@ -23,24 +23,35 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+using System;
+using CommandLine;
+using Com.Latipium.DevTools.Model;
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
+namespace Com.Latipium.DevTools.Main {
+    public class CreatePackageVerb : CommonOptions {
+        [Option('c', "configuration", HelpText="The configuration to package for")]
+        public RunConfiguration Configuration {
+            get;
+            set;
+        }
 
-[assembly: AssemblyTitle("Com.Latipium.DevTools")]
-[assembly: AssemblyDescription("Tools needed for developing Latipium mods")]
-[assembly: AssemblyCompany("Latipium")]
-[assembly: AssemblyProduct("Latipium Development Tools")]
-[assembly: AssemblyCopyright("Zach Deibert")]
-[assembly: AssemblyVersion("1.0.*")]
+        [Option('o', "out", HelpText="The directory to create the package in")]
+        public string OutputDirectory {
+            get;
+            set;
+        }
 
-#if DEBUG
-[assembly: AssemblyConfiguration("Debug")]
-#elif BETA
-[assembly: AssemblyConfiguration("Release (Beta)")]
-#else
-[assembly: AssemblyConfiguration("Release")]
-#endif
+        [Option('s', "spec", HelpText="The file to generate the package specification from")]
+        public string SpecFile {
+            get;
+            set;
+        }
 
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+        public CreatePackageVerb() {
+            Configuration = RunConfiguration.Debug;
+            OutputDirectory = ".";
+            SpecFile = "app.nuspec";
+        }
+    }
+}
+

@@ -1,5 +1,5 @@
 ﻿//
-// AssemblyInfo.cs
+// PublishVerb.cs
 //
 // Author:
 //       Zach Deibert <zachdeibert@gmail.com>
@@ -23,24 +23,28 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+using System;
+using CommandLine;
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
+namespace Com.Latipium.DevTools.Main {
+    public class PublishVerb : CommonOptions {
+        [Option('f', "file", HelpText="The file to upload")]
+        public string FileName {
+            get;
+            set;
+        }
 
-[assembly: AssemblyTitle("Com.Latipium.DevTools")]
-[assembly: AssemblyDescription("Tools needed for developing Latipium mods")]
-[assembly: AssemblyCompany("Latipium")]
-[assembly: AssemblyProduct("Latipium Development Tools")]
-[assembly: AssemblyCopyright("Zach Deibert")]
-[assembly: AssemblyVersion("1.0.*")]
+        [Option('t', "token", HelpText="The CI token to upload with")]
+        public string CIToken {
+            get;
+            set;
+        }
 
-#if DEBUG
-[assembly: AssemblyConfiguration("Debug")]
-#elif BETA
-[assembly: AssemblyConfiguration("Release (Beta)")]
-#else
-[assembly: AssemblyConfiguration("Release")]
-#endif
+        [Option("travis", HelpText="The encrypted CI token (must be running on Travis CI)")]
+        public string TravisFile {
+            get;
+            set;
+        }
+    }
+}
 
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]

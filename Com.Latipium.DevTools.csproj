@@ -4,13 +4,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{78523371-9E06-4734-B1FA-B66FC4576EE6}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Com.Latipium.Template</RootNamespace>
-    <AssemblyName>Com.Latipium.Template</AssemblyName>
+    <AssemblyName>Com.Latipium.DevTools</AssemblyName>
     <ReleaseVersion>1.0</ReleaseVersion>
-    <Description>A template for modules developers to use as a starting point for their modules</Description>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <Description>Tools needed for developing Latipium mods</Description>
     <TargetFrameworkProfile />
+    <StartupObject>Com.Latipium.DevTools.Main.Entry</StartupObject>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <Commandlineparameters>version --help</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -43,12 +45,29 @@
     <DocumentationFile>bin\Prerelease\Com.Latipium.Template.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugSymbols>true</DebugSymbols>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="CommandLine">
+      <HintPath>packages\CommandLineParser.1.9.71\lib\net35\CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>packages\log4net.2.0.5\lib\net35-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Com\Latipium\DevTools\Main\Entry.cs" />
+    <Compile Include="Com\Latipium\DevTools\Main\Options.cs" />
+    <Compile Include="Com\Latipium\DevTools\Main\CalculateVersionVerb.cs" />
+    <Compile Include="Com\Latipium\DevTools\Main\CommonOptions.cs" />
+    <Compile Include="Com\Latipium\DevTools\Main\HelpVerb.cs" />
+    <Compile Include="Com\Latipium\DevTools\Main\CreatePackageVerb.cs" />
+    <Compile Include="Com\Latipium\DevTools\Model\RunConfiguration.cs" />
+    <Compile Include="Com\Latipium\DevTools\Main\PublishVerb.cs" />
+    <Compile Include="Com\Latipium\DevTools\Main\AuthorizeCIVerb.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -58,4 +77,20 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Com\" />
+    <Folder Include="Com\Latipium\" />
+    <Folder Include="Com\Latipium\DevTools\" />
+    <Folder Include="Com\Latipium\DevTools\Main\" />
+    <Folder Include="Com\Latipium\DevTools\Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="logging.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="logging-verbose.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

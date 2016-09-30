@@ -1,5 +1,5 @@
 ﻿//
-// AssemblyInfo.cs
+// RunConfiguration.cs
 //
 // Author:
 //       Zach Deibert <zachdeibert@gmail.com>
@@ -23,24 +23,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+using System;
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
+namespace Com.Latipium.DevTools.Model {
+    public enum RunConfiguration {
+        Debug,
+        Release,
+        Prerelease
+    }
+}
 
-[assembly: AssemblyTitle("Com.Latipium.DevTools")]
-[assembly: AssemblyDescription("Tools needed for developing Latipium mods")]
-[assembly: AssemblyCompany("Latipium")]
-[assembly: AssemblyProduct("Latipium Development Tools")]
-[assembly: AssemblyCopyright("Zach Deibert")]
-[assembly: AssemblyVersion("1.0.*")]
-
-#if DEBUG
-[assembly: AssemblyConfiguration("Debug")]
-#elif BETA
-[assembly: AssemblyConfiguration("Release (Beta)")]
-#else
-[assembly: AssemblyConfiguration("Release")]
-#endif
-
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
