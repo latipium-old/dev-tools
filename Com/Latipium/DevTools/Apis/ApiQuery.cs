@@ -1,5 +1,5 @@
 ﻿//
-// AuthorizeCIVerb.cs
+// ApiQuery.cs
 //
 // Author:
 //       Zach Deibert <zachdeibert@gmail.com>
@@ -24,24 +24,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CommandLine;
+using Newtonsoft.Json;
 
-namespace Com.Latipium.DevTools.Main {
-    public class AuthorizeCIVerb : CommonOptions {
-        [Option("travis", HelpText="Create encrypted token file for Travis CI")]
-        public bool Travis {
-            get;
-            set;
-        }
+namespace Com.Latipium.DevTools.Apis {
+    public class ApiQuery {
+        [JsonProperty("type")]
+        public string Type;
 
-        [ValueOption(0)]
-        public string Namespace {
-            get;
-            set;
-        }
+        [JsonProperty("data")]
+        public string Data;
 
-        public AuthorizeCIVerb() {
-            CommandLineFormat = "[option [option ...]] <namespace>";
+        public ApiQuery(string type, string data) {
+            Type = type;
+            Data = data;
         }
     }
 }

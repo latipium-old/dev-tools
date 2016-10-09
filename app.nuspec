@@ -19,6 +19,8 @@
             <dependency id="CommandLineParser" version="1.9.71" />
             <dependency id="GitSharp" version="0.3" />
             <dependency id="NuGet.Core" version="2.12.0" />
+            <dependency id="Newtonsoft.Json" version="9.0.1" />
+            <dependency id="SharpZipLib" version="0.86.0" />
         </dependencies>
         <frameworkAssemblies>
             <frameworkAssembly assemblyName="System" />
@@ -31,5 +33,9 @@
         <file src="bin/{{ configuration }}/Com.Latipium.DevTools.exe" target="bin" />
         <file src="bin/{{ configuration }}/logging.xml" target="etc" />
         <file src="bin/{{ configuration }}/logging-verbose.xml" target="etc" />
+        <file src="bin/{{ configuration }}/oauth/index.html" target="share/oauth" />
+        <file src="bin/{{ configuration }}/oauth/main.js" target="share/oauth" />
+        <file src="bin/{{ configuration }}/oauth/package.json" target="share/oauth" />
+        <file src="bin/{{ configuration }}/oauth/submit.js" target="share/oauth" />
     </files>
 </package>

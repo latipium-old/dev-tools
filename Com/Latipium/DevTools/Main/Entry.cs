@@ -35,12 +35,26 @@ using Com.Latipium.DevTools.Versioning;
 
 namespace Com.Latipium.DevTools.Main {
     public static class Entry {
+        public static readonly string ShareDir =
+#if DEBUG
+            Environment.CurrentDirectory
+#else
+            Path.Combine(Environment.CurrentDirectory, "share")
+#endif
+        ;
+        public static readonly string EtcDir =
+#if DEBUG
+            Environment.CurrentDirectory
+#else
+            Path.Combine(Environment.CurrentDirectory, "etc")
+#endif
+        ;
         public static CommonOptions Options;
         internal static readonly Options RootOptions = new Options();
         private static readonly ILog Log = LogManager.GetLogger(typeof(Entry));
 
         private static void InitializeLogging() {
-            using (Stream logConfig = new FileStream(Options.VerboseMode ? "logging-verbose.xml" : "logging.xml", FileMode.Open)) {
+            using (Stream logConfig = new FileStream(Path.Combine(EtcDir, Options.VerboseMode ? "logging-verbose.xml" : "logging.xml"), FileMode.Open)) {
                 XmlConfigurator.Configure(logConfig);
             }
             Log.Debug("Logging initialized in verbose mode");

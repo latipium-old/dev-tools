@@ -10,6 +10,7 @@
     <ReleaseVersion>1.0</ReleaseVersion>
     <Description>Tools needed for developing Latipium mods</Description>
     <StartupObject>Com.Latipium.DevTools.Main.Entry</StartupObject>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,7 +21,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <Commandlineparameters>version --help</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -29,7 +29,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <DocumentationFile>bin\Release\Com.Latipium.Template.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -43,7 +42,6 @@
     <DocumentationFile>bin\Prerelease\Com.Latipium.Template.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugSymbols>true</DebugSymbols>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -76,6 +74,9 @@
     <Reference Include="CommandLine">
       <HintPath>packages\CommandLineParser.1.9.71\lib\net40\CommandLine.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -95,6 +96,11 @@
     <Compile Include="Com\Latipium\DevTools\Versioning\GitVersion.cs" />
     <Compile Include="Com\Latipium\DevTools\Versioning\FileVersioner.cs" />
     <Compile Include="Com\Latipium\DevTools\Packaging\SpecTransformer.cs" />
+    <Compile Include="Com\Latipium\DevTools\Apis\ApiQuery.cs" />
+    <Compile Include="Com\Latipium\DevTools\Apis\ApiResponse.cs" />
+    <Compile Include="Com\Latipium\DevTools\Apis\ApiExtensions.cs" />
+    <Compile Include="Com\Latipium\DevTools\Apis\ApiPlatform.cs" />
+    <Compile Include="Com\Latipium\DevTools\Apis\ElectronApp.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -114,6 +120,7 @@
     <Folder Include="Com\Latipium\DevTools\Packaging\" />
     <Folder Include="Com\Latipium\DevTools\Publishing\" />
     <Folder Include="Com\Latipium\DevTools\Authorizing\" />
+    <Folder Include="Com\Latipium\DevTools\Apis\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="logging.xml">
@@ -124,5 +131,59 @@
     </None>
     <None Include="app.nuspec" />
     <None Include="packages.config" />
+    <None Include="oauth\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\main.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\package.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\submit.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\no_cleanup.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\no_cleanup_on_exit.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\no_cleanup_on_exit.spec.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\package.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\lib\temp.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\node_modules\rimraf\AUTHORS">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\node_modules\rimraf\LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\node_modules\rimraf\bin.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\node_modules\rimraf\package.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\temp\node_modules\rimraf\rimraf.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\os-tmpdir\index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\os-tmpdir\license">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="oauth\node_modules\os-tmpdir\package.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 ﻿//
-// AuthorizeCIVerb.cs
+// ApiExtensions.cs
 //
 // Author:
 //       Zach Deibert <zachdeibert@gmail.com>
@@ -24,24 +24,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CommandLine;
+using System.Collections.Generic;
+using System.Diagnostics;
+using Newtonsoft.Json;
 
-namespace Com.Latipium.DevTools.Main {
-    public class AuthorizeCIVerb : CommonOptions {
-        [Option("travis", HelpText="Create encrypted token file for Travis CI")]
-        public bool Travis {
-            get;
-            set;
-        }
-
-        [ValueOption(0)]
-        public string Namespace {
-            get;
-            set;
-        }
-
-        public AuthorizeCIVerb() {
-            CommandLineFormat = "[option [option ...]] <namespace>";
+namespace Com.Latipium.DevTools.Apis {
+    public static class ApiExtensions {
+        public static ApiResponse Execute(this IEnumerable<ApiQuery> queries) {
+            string query = JsonConvert.SerializeObject(queries);
+            string response = ElectronApp.Run(query);
+            return JsonConvert.DeserializeObject<ApiResponse>(response);
         }
     }
 }

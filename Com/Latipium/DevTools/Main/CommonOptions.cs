@@ -47,6 +47,7 @@ namespace Com.Latipium.DevTools.Main {
 
         public CommonOptions() {
             CommandLineFormat = "[option [option ...]]";
+            WorkingDirectory = ".";
         }
     }
 }
