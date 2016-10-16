@@ -192,7 +192,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="lib\CurlSharp\CurlSharp.dll" />
-    <None Include="lib\CurlSharp\LICENSE" />
+    <None Include="lib\CurlSharp\LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="lib\CurlSharp\libcurl.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
