@@ -1,5 +1,5 @@
 ﻿//
-// PublishVerb.cs
+// ApiRequest.cs
 //
 // Author:
 //       Zach Deibert <zachdeibert@gmail.com>
@@ -24,26 +24,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CommandLine;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
 
-namespace Com.Latipium.DevTools.Main {
-    public class PublishVerb : CommonOptions {
-        [Option('f', "file", HelpText="The file to upload")]
-        public string FileName {
-            get;
-            set;
-        }
+namespace Com.Latipium.DevTools.Apis {
+    public class ApiRequest {
+        [JsonProperty("version")]
+        public int Version;
 
-        [Option('t', "token", HelpText="The CI token to upload with")]
-        public string CIToken {
-            get;
-            set;
-        }
+        [JsonProperty("session")]
+        public bool Session;
 
-        [Option("travis", HelpText="Use the encrypted CI token file (must be running on Travis CI)")]
-        public bool TravisFile {
-            get;
-            set;
+        [JsonProperty("queries")]
+        public List<ApiQuery> Queries;
+
+        public ApiRequest(params ApiQuery[] queries) {
+            Version = 1;
+            Session = false;
+            Queries = queries.ToList();
         }
     }
 }
