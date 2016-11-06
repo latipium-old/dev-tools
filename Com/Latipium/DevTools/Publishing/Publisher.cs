@@ -25,71 +25,54 @@
 // THE SOFTWARE.
 using System;
 using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
 using log4net;
-using Newtonsoft.Json;
-using Com.Latipium.DevTools.Apis;
+using NuGet;
 using Com.Latipium.DevTools.Main;
 
 namespace Com.Latipium.DevTools.Publishing {
     public static class Publisher {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Publisher));
 
-        private static string Upload(string filename) {
-            /* // Mono doesn't support elliptic curve cryptography
-            HttpClient client = new HttpClient();
-            Task<HttpResponseMessage> res = client.PutAsync("https://apis.latipium.com/upload", new ByteArrayContent(File.ReadAllBytes(filename)));
-            res.Wait();
-            if (!res.Result.IsSuccessStatusCode) {
-                Log.FatalFormat("Server returned fatal error {0}", res.Result.ReasonPhrase);
-                return null;
-            }
-            Task<string> str = res.Result.Content.ReadAsStringAsync();
-            str.Wait();
-            return str.Result;
-            */
-            return HttpsWorkarounds.PutZip("https://apis.latipium.com/upload", File.ReadAllBytes(filename));
-        }
-
-        private static string CreateQuery(string uploadToken) {
-            return JsonConvert.SerializeObject(new ApiRequest(
-                new ApiQuery("publishModule", uploadToken)
-            ));
-        }
-
-        private static void RunQuery(string ciToken, string query) {
-            /* // Mono doesn't support elliptic curve cryptography
-            HttpClient client = new HttpClient();
-            Task<HttpResponseMessage> res = client.PostAsync(string.Format("https://apis.latipium.com/ci/{0}", ciToken), new StringContent(query));
-            res.Wait();
-            if (!res.Result.IsSuccessStatusCode) {
-                Log.FatalFormat("Server returned fatal error {0}", res.Result.ReasonPhrase);
-            }
-            Task<string> str = res.Result.Content.ReadAsStringAsync();
-            ApiResponse apiRes = JsonConvert.DeserializeObject<ApiResponse>(str.Result);
-            */
-            string str = HttpsWorkarounds.PostJson(string.Format("https://apis.latipium.com/ci/{0}", ciToken), query);
-            ApiResponse apiRes = JsonConvert.DeserializeObject<ApiResponse>(str);
-            // End of workaround code
-            if (apiRes.Successful.Count == 1) {
-                Log.Info("Upload successful");
-            } else {
-                Log.Fatal("Upload failed!");
-            }
-        }
-
         public static void Handle(PublishVerb verb) {
-            string ciToken;
-            if (verb.TravisFile) {
-                ciToken = File.ReadAllText(".latipium-ci-token");
-            } else {
-                ciToken = verb.CIToken;
+            if (verb.FileName == null) {
+                string[] packages = Directory.GetFiles(".", "*.nupkg");
+                switch (packages.Length) {
+                    case 0:
+                        Log.Fatal("No packages found!");
+                        return;
+                    case 1:
+                        verb.FileName = packages[0];
+                        break;
+                    default:
+                        Log.Fatal("Too many packages found in project directory.");
+                        Log.Fatal("Try deleting all of the '*.nupkg' and rebuilding the project.");
+                        return;
+                }
             }
-            string uploadToken = Upload(verb.FileName);
-            if (uploadToken != null) {
-                string query = CreateQuery(uploadToken);
-                RunQuery(ciToken, query);
+            int packageSize;
+            using (Stream stream = new FileStream(verb.FileName, FileMode.Open, FileAccess.Read)) {
+                stream.Seek(0, SeekOrigin.End);
+                packageSize = (int) stream.Position;
+            }
+            PackageServer server = new PackageServer("https://www.nuget.org/api/v2/package", "Latipium DevTools (https://github.com/latipium/dev-tools)");
+            ZipPackage package = new ZipPackage(verb.FileName);
+            try {
+                server.PushPackage(string.IsNullOrWhiteSpace(verb.ApiKey) ? Environment.GetEnvironmentVariable("LATIPIUM_NUGET_KEY") : verb.ApiKey, package, packageSize, 1800, false);
+            } catch (Exception ex) {
+                Log.Error("Upload failed.", ex);
+                IPackageRepository repo = PackageRepositoryFactory.Default.CreateRepository("https://packages.nuget.org/api/v2");
+                IPackage tmp;
+                if (repo.TryFindPackage(package.Id, package.Version, out tmp)) {
+                    return;
+                } else {
+                    Log.Error("However, it appears the package has been saved on the server.");
+                    Log.Error("Ignoring upload error.");
+                }
+            }
+            Log.Info("Package uploaded!");
+            if (verb.Delete) {
+                File.Delete(verb.FileName);
+                Log.Info("Package deleted.");
             }
         }
     }

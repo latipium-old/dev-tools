@@ -55,7 +55,7 @@ namespace Com.Latipium.DevTools.Main {
             set;
         }
 
-        [VerbOption("authorize", HelpText="Authorize a CI build using your Latipium account")]
+        [VerbOption("authorize", HelpText="Authorize a CI build using your NuGet.org account")]
         public AuthorizeCIVerb AuthorizeVerb {
             get;
             set;

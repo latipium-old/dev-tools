@@ -28,20 +28,27 @@ using CommandLine;
 
 namespace Com.Latipium.DevTools.Main {
     public class AuthorizeCIVerb : CommonOptions {
-        [Option("travis", HelpText="Create encrypted token file for Travis CI")]
-        public bool Travis {
+        [ValueOption(0)]
+        public string ApiKey {
             get;
             set;
         }
 
-        [ValueOption(0)]
-        public string Namespace {
+        [Option('r', "repository", HelpText="The group/project name on GitHub of this repository")]
+        public string ProjectId {
+            get;
+            set;
+        }
+
+        [Option('g', "gitDir", HelpText="The directory of the git repository")]
+        public string GitDir {
             get;
             set;
         }
 
         public AuthorizeCIVerb() {
-            CommandLineFormat = "[option [option ...]] <namespace>";
+            CommandLineFormat = "[option [option ...]] <apikey>";
+            GitDir = ".git";
         }
     }
 }

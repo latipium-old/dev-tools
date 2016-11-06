@@ -34,14 +34,14 @@ namespace Com.Latipium.DevTools.Main {
             set;
         }
 
-        [Option('t', "token", HelpText="The CI token to upload with")]
-        public string CIToken {
+        [Option('k', "apikey", HelpText="The NuGet.org api key to upload with")]
+        public string ApiKey {
             get;
             set;
         }
 
-        [Option("travis", HelpText="Use the encrypted CI token file (must be running on Travis CI)")]
-        public bool TravisFile {
+        [Option('d', "rm", HelpText="Delete the package after uploading")]
+        public bool Delete {
             get;
             set;
         }

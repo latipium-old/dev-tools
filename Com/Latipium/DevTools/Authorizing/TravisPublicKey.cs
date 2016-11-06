@@ -1,5 +1,5 @@
 ﻿//
-// ApiQuery.cs
+// TravisPublicKey.cs
 //
 // Author:
 //       Zach Deibert <zachdeibert@gmail.com>
@@ -24,20 +24,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using Newtonsoft.Json;
 
-namespace Com.Latipium.DevTools.Apis {
-    public class ApiQuery {
-        [JsonProperty("type")]
-        public string Type;
-
-        [JsonProperty("data")]
-        public string Data;
-
-        public ApiQuery(string type, string data) {
-            Type = type;
-            Data = data;
-        }
+namespace Com.Latipium.DevTools.Authorizing {
+    public class TravisPublicKey {
+        public string key;
+        public string fingerprint;
     }
 }
 

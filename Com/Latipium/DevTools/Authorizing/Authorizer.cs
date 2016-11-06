@@ -24,47 +24,104 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
+using GitSharp;
 using log4net;
 using Newtonsoft.Json;
-using Com.Latipium.DevTools.Apis;
+using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Crypto.Encodings;
+using Org.BouncyCastle.Crypto.Engines;
+using Org.BouncyCastle.OpenSsl;
+using YamlDotNet.Serialization;
 using Com.Latipium.DevTools.Main;
 
 namespace Com.Latipium.DevTools.Authorizing {
     public static class Authorizer {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Authorizer));
 
-        public static void Handle(AuthorizeCIVerb verb) {
-            ApiResponse response = new ApiQuery[] {
-                new ApiQuery("createCIToken", verb.Namespace)
-            }.Execute();
-            if (response.Successful.Count == 1) {
-                string token = response.Results.First();
-                Log.DebugFormat("CI token is {0}", token);
-                if (verb.Travis) {
-                    try {
-                        File.WriteAllText(".latipium-ci-token", token);
-                        ProcessStartInfo psi = new ProcessStartInfo();
-                        psi.Arguments = "encrypt-file .latipium-ci-token --add";
-                        psi.FileName = "travis";
-                        using (Process proc = Process.Start(psi)) {
-                            proc.WaitForExit();
-                            if (proc.ExitCode != 0) {
-                                Log.FatalFormat("Travis CI Command Line Client returned error code {0}", proc.ExitCode);
-                            }
-                        }
-                    } finally {
-                        File.Delete(".latipium-ci-token");
+        private static string GetRepo(AuthorizeCIVerb verb) {
+            if (verb.ProjectId != null) {
+                return verb.ProjectId;
+            }
+            Repository repo = new Repository(verb.GitDir);
+            IEnumerable<string> repos = repo.Config
+                .Where(
+                    cfg => Regex.IsMatch(cfg.Key, "^remote.[^.]+.url$") &&
+                    Regex.IsMatch(cfg.Value, "^(?:(?:https?|ssh)://)?(?:git@)?github(?:\\.com)?[/:]([^/]+/[^/]+)(?:\\.git)?$"))
+                .Select(
+                    cfg => Regex.Replace(cfg.Value, "^(?:(?:https?|ssh)://)?(?:git@)?github(?:\\.com)?[/:]([^/]+/[^/]+)(?:\\.git)?$", "$1"))
+                .Distinct();
+            switch (repos.Count()) {
+                case 0:
+                    Log.Fatal("Unable to determine GitHub repo url.");
+                    Log.Fatal("Try --repository=group/project");
+                    return null;
+                case 1:
+                    return repos.First();
+                default:
+                    Log.Fatal("Unable to determine GitHub repo url.");
+                    Log.Fatal("It seems there are multiple GitHub remotes:");
+                    foreach (string remote in repos) {
+                        Log.FatalFormat("- {0}", remote);
                     }
-                } else {
-                    Console.WriteLine(token);
+                    return null;
+            }
+        }
+
+        public static void Handle(AuthorizeCIVerb verb) {
+            string repo = GetRepo(verb);
+            if (repo == null) {
+                return;
+            }
+            Log.DebugFormat("Detected repository {0}", repo);
+            HttpWebRequest req = WebRequest.CreateHttp(string.Format("https://api.travis-ci.org/repos/{0}/key", repo));
+            req.UserAgent = "Latipium DevTools (https://github.com/latipium/dev-tools)";
+            req.Accept = "application/vnd.travis-ci.2+json";
+            TravisPublicKey key;
+            using (WebResponse res = req.GetResponse()) {
+                using (Stream stream = res.GetResponseStream()) {
+                    using (StreamReader reader = new StreamReader(stream)) {
+                        key = JsonConvert.DeserializeObject<TravisPublicKey>(reader.ReadToEnd());
+                    }
                 }
+            }
+            Log.DebugFormat("Downloaded public key:\n{0}", key.key);
+            Log.DebugFormat("Key fingerprint: {0}", key.fingerprint);
+            Pkcs1Encoding engine = new Pkcs1Encoding(new RsaEngine());
+            AsymmetricKeyParameter keyParam;
+            using (StringReader reader = new StringReader(key.key)) {
+                keyParam = (AsymmetricKeyParameter) new PemReader(reader).ReadObject();
+            }
+            engine.Init(true, keyParam);
+            byte[] apiKey = Encoding.UTF8.GetBytes(string.Format("LATIPIUM_NUGET_KEY={0}", verb.ApiKey));
+            string encKey = Convert.ToBase64String(engine.ProcessBlock(apiKey, 0, apiKey.Length));
+            Deserializer deser = new Deserializer();
+            Dictionary<object, object> yaml;
+            using (Stream stream = new FileStream(".travis.yml", FileMode.OpenOrCreate, FileAccess.Read)) {
+                using (StreamReader reader = new StreamReader(stream)) {
+                    yaml = (Dictionary<object, object>) deser.Deserialize(reader);
+                }
+            }
+            if (yaml == null) {
+                yaml = new Dictionary<object, object>();
+            }
+            Dictionary<object, object> env;
+            if (yaml.ContainsKey("env")) {
+                env = (Dictionary<object, object>) yaml["env"];
             } else {
-                Log.Error("API returned error code");
-                if (Log.IsDebugEnabled) {
-                    Log.DebugFormat("Response was {0}", JsonConvert.SerializeObject(response));
+                env = new Dictionary<object, object>();
+                yaml["env"] = env;
+            }
+            env["secure"] = encKey;
+            Serializer ser = new Serializer();
+            using (Stream stream = new FileStream(".travis.yml", FileMode.Truncate, FileAccess.Write)) {
+                using (StreamWriter writer = new StreamWriter(stream)) {
+                    ser.Serialize(writer, yaml);
                 }
             }
         }

@@ -78,8 +78,11 @@
       <HintPath>packages\Winterdom.IO.FileMap.2.0.2.0\lib\Winterdom.IO.FileMap.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
-    <Reference Include="CurlSharp">
-      <HintPath>lib\CurlSharp\CurlSharp.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet">
+      <HintPath>packages\YamlDotNet.4.0.0\lib\net35\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -100,13 +103,7 @@
     <Compile Include="Com\Latipium\DevTools\Versioning\GitVersion.cs" />
     <Compile Include="Com\Latipium\DevTools\Versioning\FileVersioner.cs" />
     <Compile Include="Com\Latipium\DevTools\Packaging\SpecTransformer.cs" />
-    <Compile Include="Com\Latipium\DevTools\Apis\ApiQuery.cs" />
-    <Compile Include="Com\Latipium\DevTools\Apis\ApiResponse.cs" />
-    <Compile Include="Com\Latipium\DevTools\Apis\ApiExtensions.cs" />
-    <Compile Include="Com\Latipium\DevTools\Apis\ApiPlatform.cs" />
-    <Compile Include="Com\Latipium\DevTools\Apis\ElectronApp.cs" />
-    <Compile Include="Com\Latipium\DevTools\Apis\ApiRequest.cs" />
-    <Compile Include="Com\Latipium\DevTools\Publishing\HttpsWorkarounds.cs" />
+    <Compile Include="Com\Latipium\DevTools\Authorizing\TravisPublicKey.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -126,7 +123,6 @@
     <Folder Include="Com\Latipium\DevTools\Packaging\" />
     <Folder Include="Com\Latipium\DevTools\Publishing\" />
     <Folder Include="Com\Latipium\DevTools\Authorizing\" />
-    <Folder Include="Com\Latipium\DevTools\Apis\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="logging.xml">
@@ -137,82 +133,6 @@
     </None>
     <None Include="app.nuspec" />
     <None Include="packages.config" />
-    <None Include="oauth\index.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\main.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\package.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\submit.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\LICENSE">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\no_cleanup.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\no_cleanup_on_exit.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\no_cleanup_on_exit.spec.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\package.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\lib\temp.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\node_modules\rimraf\AUTHORS">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\node_modules\rimraf\LICENSE">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\node_modules\rimraf\bin.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\node_modules\rimraf\package.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\temp\node_modules\rimraf\rimraf.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\os-tmpdir\index.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\os-tmpdir\license">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="oauth\node_modules\os-tmpdir\package.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\CurlSharp\CurlSharp.dll" />
-    <None Include="lib\CurlSharp\LICENSE">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\CurlSharp\libcurl.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\CurlSharp\libeay32.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\CurlSharp\libssh2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\CurlSharp\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\CurlSharp\ssleay32.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\CurlSharp\zlib1.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="CurlSharp.dll.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
