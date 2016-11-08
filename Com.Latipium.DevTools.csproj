@@ -164,8 +164,5 @@
     </None>
     <None Include="app.nuspec" />
     <None Include="packages.config" />
-    <None Include="CurlSharp.dll.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>
