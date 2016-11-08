@@ -45,6 +45,7 @@
       </CustomCommands>
     </CustomCommands>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Com.Latipium.DevTools.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Prerelease|AnyCPU' ">
     <Optimize>true</Optimize>
