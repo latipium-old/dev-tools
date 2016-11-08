@@ -32,7 +32,6 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyCompany("Latipium")]
 [assembly: AssemblyProduct("Latipium Development Tools")]
 [assembly: AssemblyCopyright("Zach Deibert")]
-[assembly: AssemblyVersion("1.0.*")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
