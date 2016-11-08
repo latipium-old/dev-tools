@@ -32,20 +32,7 @@
     </metadata>
     <files>
         <file src="bin/{{ configuration }}/Com.Latipium.DevTools.exe" target="bin" />
-        <file src="bin/{{ configuration }}/CurlSharp.dll" target="lib" />
-        <file src="bin/{{ configuration }}/CurlSharp.dll.config" target="lib" />
-        <file src="bin/{{ configuration }}/lib/CurlSharp/libcurl.dll" target="lib" />
-        <file src="bin/{{ configuration }}/lib/CurlSharp/libeay32.dll" target="lib" />
-        <file src="bin/{{ configuration }}/lib/CurlSharp/libssh2.dll" target="lib" />
-        <file src="bin/{{ configuration }}/lib/CurlSharp/msvcr120.dll" target="lib" />
-        <file src="bin/{{ configuration }}/lib/CurlSharp/ssleay32.dll" target="lib" />
-        <file src="bin/{{ configuration }}/lib/CurlSharp/zlib1.dll" target="lib" />
-        <file src="bin/{{ configuration }}/lib/CurlSharp/LICENSE" target="lib" />
         <file src="bin/{{ configuration }}/logging.xml" target="etc" />
         <file src="bin/{{ configuration }}/logging-verbose.xml" target="etc" />
-        <file src="bin/{{ configuration }}/oauth/index.html" target="share/oauth" />
-        <file src="bin/{{ configuration }}/oauth/main.js" target="share/oauth" />
-        <file src="bin/{{ configuration }}/oauth/package.json" target="share/oauth" />
-        <file src="bin/{{ configuration }}/oauth/submit.js" target="share/oauth" />
     </files>
 </package>
