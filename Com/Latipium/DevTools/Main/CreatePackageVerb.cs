@@ -29,7 +29,7 @@ using Com.Latipium.DevTools.Model;
 
 namespace Com.Latipium.DevTools.Main {
     public class CreatePackageVerb : CommonOptions {
-        [Option('c', "configuration", HelpText="The configuration to package for")]
+        [Option('t', "configuration", HelpText="The configuration to package for")]
         public RunConfiguration Configuration {
             get;
             set;
