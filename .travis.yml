@@ -1,0 +1,7 @@
+language: csharp
+mono:
+- latest
+install:
+- nuget restore
+script:
+- xbuild /p:Configuration=CI Com.Latipium.Template.sln
