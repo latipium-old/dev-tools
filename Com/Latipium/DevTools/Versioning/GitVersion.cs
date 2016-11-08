@@ -38,7 +38,8 @@ namespace Com.Latipium.DevTools.Versioning {
             if (tag != null) {
                 try {
                     try {
-                        return new Version(tag.Name);
+                        Version raw = new Version(tag.Name);
+                        return new Version(Math.Max(0, raw.Major), Math.Max(0, raw.Minor), Math.Max(0, raw.Build), Math.Max(0, raw.Revision));
                     } finally {
                         distance = 0;
                     }
