@@ -15,8 +15,11 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Prerelease|Any CPU = Prerelease|Any CPU
 		CI|Any CPU = CI|Any CPU
+		AuthorizeCI|Any CPU = AuthorizeCI|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78523371-9E06-4734-B1FA-B66FC4576EE6}.AuthorizeCI|Any CPU.ActiveCfg = AuthorizeCI|Any CPU
+		{78523371-9E06-4734-B1FA-B66FC4576EE6}.AuthorizeCI|Any CPU.Build.0 = AuthorizeCI|Any CPU
 		{78523371-9E06-4734-B1FA-B66FC4576EE6}.CI|Any CPU.ActiveCfg = CI|Any CPU
 		{78523371-9E06-4734-B1FA-B66FC4576EE6}.CI|Any CPU.Build.0 = CI|Any CPU
 		{78523371-9E06-4734-B1FA-B66FC4576EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
