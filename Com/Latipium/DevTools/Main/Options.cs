@@ -30,37 +30,63 @@ using CommandLine;
 using CommandLine.Text;
 
 namespace Com.Latipium.DevTools.Main {
+    /// <summary>
+    /// The main options object.
+    /// </summary>
     public class Options {
+        /// <summary>
+        /// Gets or sets the help verb.
+        /// </summary>
+        /// <value>The help verb.</value>
         [VerbOption("help", HelpText="Shows help for a command")]
         public HelpVerb HelpVerb {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the version verb.
+        /// </summary>
+        /// <value>The version verb.</value>
         [VerbOption("version", HelpText="Calculates versioning information from Git")]
         public CalculateVersionVerb VersionVerb {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the package verb.
+        /// </summary>
+        /// <value>The package verb.</value>
         [VerbOption("package", HelpText="Creates a package file from the code")]
         public CreatePackageVerb PackageVerb {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the publish verb.
+        /// </summary>
+        /// <value>The publish verb.</value>
         [VerbOption("publish", HelpText="Uploads a package file to the server")]
         public PublishVerb PublishVerb {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the authorize verb.
+        /// </summary>
+        /// <value>The authorize verb.</value>
         [VerbOption("authorize", HelpText="Authorize a CI build using your NuGet.org account")]
         public AuthorizeCIVerb AuthorizeVerb {
             get;
             set;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Com.Latipium.DevTools.Main.Options"/> class.
+        /// </summary>
         public Options() {
             HelpVerb = new HelpVerb();
             VersionVerb = new CalculateVersionVerb();

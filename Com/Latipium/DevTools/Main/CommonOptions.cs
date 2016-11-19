@@ -27,24 +27,42 @@ using System;
 using CommandLine;
 
 namespace Com.Latipium.DevTools.Main {
+    /// <summary>
+    /// The options common to all commands.
+    /// </summary>
     public class CommonOptions {
+        /// <summary>
+        /// Gets or sets the command line format of the options.
+        /// </summary>
+        /// <value>The command line format.</value>
         public string CommandLineFormat {
             get;
             protected set;
         }
 
+        /// <summary>
+        /// Gets or sets the working directory.
+        /// </summary>
+        /// <value>The working directory.</value>
         [Option('C', "cwd", HelpText="Sets the directory to run in")]
         public string WorkingDirectory {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this application should run in verbose mode.
+        /// </summary>
+        /// <value><c>true</c> if it should be in verbose mode; otherwise, <c>false</c>.</value>
         [Option('v', "verbose", HelpText="Logs extra information to the console")]
         public bool VerboseMode {
             get;
             set;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Com.Latipium.DevTools.Main.CommonOptions"/> class.
+        /// </summary>
         public CommonOptions() {
             CommandLineFormat = "[option [option ...]]";
             WorkingDirectory = ".";

@@ -33,10 +33,23 @@ using System.Xml;
 using Com.Latipium.DevTools.Model;
 
 namespace Com.Latipium.DevTools.Packaging {
+    /// <summary>
+    /// Transforms the specification file.
+    /// </summary>
     public class SpecTransformer {
+        /// <summary>
+        /// The filename.
+        /// </summary>
         public readonly string Filename;
+        /// <summary>
+        /// The configuration to run in.
+        /// </summary>
         public readonly RunConfiguration Config;
 
+        /// <summary>
+        /// Gets the preparsed text.
+        /// </summary>
+        /// <value>The preparsed text.</value>
         public string PreparsedText {
             get {
                 using (TextReader reader = new StreamReader(Filename)) {
@@ -45,12 +58,20 @@ namespace Com.Latipium.DevTools.Packaging {
             }
         }
 
+        /// <summary>
+        /// Gets the configured text.
+        /// </summary>
+        /// <value>The configured text.</value>
         public string ConfiguredText {
             get {
                 return Regex.Replace(PreparsedText, "{{[ \t]*configuration[ \t]*}}", Config.ToString());
             }
         }
 
+        /// <summary>
+        /// Gets the configured document.
+        /// </summary>
+        /// <value>The configured document.</value>
         public XmlDocument ConfiguredDocument {
             get {
                 XmlDocument doc = new XmlDocument();
@@ -59,6 +80,10 @@ namespace Com.Latipium.DevTools.Packaging {
             }
         }
 
+        /// <summary>
+        /// Gets the configured version.
+        /// </summary>
+        /// <value>The configured version.</value>
         public Version ConfiguredVersion {
             get {
                 return Assembly.LoadFile(
@@ -73,18 +98,31 @@ namespace Com.Latipium.DevTools.Packaging {
             }
         }
 
+        /// <summary>
+        /// Gets the parsed text.
+        /// </summary>
+        /// <value>The parsed text.</value>
         public string ParsedText {
             get {
                 return Regex.Replace(ConfiguredText, "{{[ \t]*version[ \t]*}}", ConfiguredVersion.ToString());
             }
         }
 
+        /// <summary>
+        /// Gets the parsed stream.
+        /// </summary>
+        /// <value>The parsed stream.</value>
         public Stream ParsedStream {
             get {
                 return new MemoryStream(Encoding.UTF8.GetBytes(ParsedText));
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Com.Latipium.DevTools.Packaging.SpecTransformer"/> class.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <param name="config">The run configuration.</param>
         public SpecTransformer(string file, RunConfiguration config) {
             Filename = file;
             Config = config;

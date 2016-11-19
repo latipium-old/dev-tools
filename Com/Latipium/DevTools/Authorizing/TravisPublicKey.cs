@@ -26,8 +26,17 @@
 using System;
 
 namespace Com.Latipium.DevTools.Authorizing {
+    /// <summary>
+    /// Object representation of the JSON that the Travis CI apis return for the public key.
+    /// </summary>
     public class TravisPublicKey {
+        /// <summary>
+        /// The key.
+        /// </summary>
         public string key;
+        /// <summary>
+        /// The fingerprint.
+        /// </summary>
         public string fingerprint;
     }
 }

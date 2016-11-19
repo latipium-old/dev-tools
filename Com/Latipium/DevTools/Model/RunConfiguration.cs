@@ -26,9 +26,21 @@
 using System;
 
 namespace Com.Latipium.DevTools.Model {
+    /// <summary>
+    /// The configuration to run the application in.
+    /// </summary>
     public enum RunConfiguration {
+        /// <summary>
+        /// The debug configuration.
+        /// </summary>
         Debug,
+        /// <summary>
+        /// The release configuration.
+        /// </summary>
         Release,
+        /// <summary>
+        /// The prerelease configuration.
+        /// </summary>
         Prerelease
     }
 }

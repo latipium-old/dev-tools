@@ -30,9 +30,16 @@ using NuGet;
 using Com.Latipium.DevTools.Main;
 
 namespace Com.Latipium.DevTools.Publishing {
+    /// <summary>
+    /// The implementation of the publish command.
+    /// </summary>
     public static class Publisher {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Publisher));
 
+        /// <summary>
+        /// Handles the specified command.
+        /// </summary>
+        /// <param name="verb">The command verb.</param>
         public static void Handle(PublishVerb verb) {
             if (verb.FileName == null) {
                 string[] packages = Directory.GetFiles(".", "*.nupkg");

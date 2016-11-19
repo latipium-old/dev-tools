@@ -27,19 +27,34 @@ using System;
 using CommandLine;
 
 namespace Com.Latipium.DevTools.Main {
+    /// <summary>
+    /// The command verb for the publish command.
+    /// </summary>
     public class PublishVerb : CommonOptions {
+        /// <summary>
+        /// Gets or sets the name of the file.
+        /// </summary>
+        /// <value>The name of the file.</value>
         [Option('f', "file", HelpText="The file to upload")]
         public string FileName {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the API key.
+        /// </summary>
+        /// <value>The API key.</value>
         [Option('k', "apikey", HelpText="The NuGet.org api key to upload with")]
         public string ApiKey {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the file should be deleted after success.
+        /// </summary>
+        /// <value><c>true</c> if it should be deleted; otherwise, <c>false</c>.</value>
         [Option('d', "rm", HelpText="Delete the package after uploading")]
         public bool Delete {
             get;

@@ -28,19 +28,33 @@ using System.Collections.Generic;
 using CommandLine;
 
 namespace Com.Latipium.DevTools.Main {
+    /// <summary>
+    /// The command verb for the version command.
+    /// </summary>
     public class CalculateVersionVerb : CommonOptions {
+        /// <summary>
+        /// Gets or sets the files.
+        /// </summary>
+        /// <value>The files.</value>
         [ValueList(typeof(List<string>))]
         public IList<string> Files {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the git directory.
+        /// </summary>
+        /// <value>The git directory.</value>
         [Option('g', "gitDir", HelpText="The directory of the git repository")]
         public string GitDir {
             get;
             set;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Com.Latipium.DevTools.Main.CalculateVersionVerb"/> class.
+        /// </summary>
         public CalculateVersionVerb() {
             CommandLineFormat = "[option [option ...]] [file [file ...]]";
             GitDir = ".git";

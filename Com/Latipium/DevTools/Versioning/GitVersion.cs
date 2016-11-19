@@ -29,8 +29,14 @@ using GitSharp;
 using log4net;
 
 namespace Com.Latipium.DevTools.Versioning {
+    /// <summary>
+    /// Gets the version from the git repository.
+    /// </summary>
     public class GitVersion {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GitVersion));
+        /// <summary>
+        /// The version.
+        /// </summary>
         public readonly Version Version;
 
         private Version FindVersion(Commit commit, out int distance) {
@@ -69,6 +75,10 @@ namespace Com.Latipium.DevTools.Versioning {
             return new Version(version.Major, version.Minor, version.Build, (int) Math.Round((DateTimeOffset.Now - commit.AuthorDate).TotalMinutes) % 65536);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Com.Latipium.DevTools.Versioning.GitVersion"/> class.
+        /// </summary>
+        /// <param name="gitDir">The git directory.</param>
         public GitVersion(string gitDir) {
             Repository repo = new Repository(gitDir);
             Version = GetVersion(repo);

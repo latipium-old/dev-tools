@@ -29,9 +29,16 @@ using log4net;
 using Com.Latipium.DevTools.Main;
 
 namespace Com.Latipium.DevTools.Versioning {
+    /// <summary>
+    /// The implementation of the version command.
+    /// </summary>
     public static class Versioner {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Versioner));
 
+        /// <summary>
+        /// Handles the specified command.
+        /// </summary>
+        /// <param name="verb">The command verb.</param>
         public static void Handle(CalculateVersionVerb verb) {
             if (Log.IsDebugEnabled) {
                 Log.DebugFormat("Entering versioner verb with parameters gitDir={0}, files={1}", verb.GitDir, verb.Files.Aggregate((a,

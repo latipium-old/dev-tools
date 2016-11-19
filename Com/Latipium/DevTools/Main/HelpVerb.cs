@@ -30,7 +30,14 @@ using CommandLine;
 using CommandLine.Text;
 
 namespace Com.Latipium.DevTools.Main {
+    /// <summary>
+    /// The command verb for the help command.
+    /// </summary>
     public class HelpVerb : CommonOptions {
+        /// <summary>
+        /// Gets or sets the name of the verb to get help for.
+        /// </summary>
+        /// <value>The name of the verb.</value>
         [ValueOption(0)]
         public string VerbName {
             get;
@@ -47,6 +54,10 @@ namespace Com.Latipium.DevTools.Main {
                 .GetValue(Entry.RootOptions, null);
         }
 
+        /// <summary>
+        /// Gets the usage information.
+        /// </summary>
+        /// <returns>The usage information.</returns>
         public string GetUsage() {
             HelpText help = new HelpText();
             help.AddDashesToOption = true;
@@ -71,6 +82,9 @@ namespace Com.Latipium.DevTools.Main {
             return help;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Com.Latipium.DevTools.Main.HelpVerb"/> class.
+        /// </summary>
         public HelpVerb() {
             CommandLineFormat = "[command]";
         }

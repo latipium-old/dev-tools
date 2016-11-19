@@ -31,6 +31,9 @@ using NuGet;
 using Com.Latipium.DevTools.Main;
 
 namespace Com.Latipium.DevTools.Packaging {
+    /// <summary>
+    /// The implementation of the package command
+    /// </summary>
     public static class Packager {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Packager));
 
@@ -41,6 +44,10 @@ namespace Com.Latipium.DevTools.Packaging {
             Directory.CreateDirectory(verb.OutputDirectory);
         }
 
+        /// <summary>
+        /// Handles the specified command.
+        /// </summary>
+        /// <param name="verb">The command verb.</param>
         public static void Handle(CreatePackageVerb verb) {
             PreprocessVerb(verb);
             SpecTransformer spec = new SpecTransformer(verb.SpecFile, verb.Configuration);

@@ -27,25 +27,43 @@ using System;
 using CommandLine;
 
 namespace Com.Latipium.DevTools.Main {
+    /// <summary>
+    /// The command verb for the authorize command.
+    /// </summary>
     public class AuthorizeCIVerb : CommonOptions {
+        /// <summary>
+        /// Gets or sets the API key.
+        /// </summary>
+        /// <value>The API key.</value>
         [ValueOption(0)]
         public string ApiKey {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the project identifier.
+        /// </summary>
+        /// <value>The project identifier.</value>
         [Option('r', "repository", HelpText="The group/project name on GitHub of this repository")]
         public string ProjectId {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the git directory.
+        /// </summary>
+        /// <value>The git directory.</value>
         [Option('g', "gitDir", HelpText="The directory of the git repository")]
         public string GitDir {
             get;
             set;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Com.Latipium.DevTools.Main.AuthorizeCIVerb"/> class.
+        /// </summary>
         public AuthorizeCIVerb() {
             CommandLineFormat = "[option [option ...]] <apikey>";
             GitDir = ".git";

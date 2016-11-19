@@ -41,6 +41,9 @@ using YamlDotNet.Serialization;
 using Com.Latipium.DevTools.Main;
 
 namespace Com.Latipium.DevTools.Authorizing {
+    /// <summary>
+    /// The implementation of the authorize command.
+    /// </summary>
     public static class Authorizer {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Authorizer));
 
@@ -73,6 +76,10 @@ namespace Com.Latipium.DevTools.Authorizing {
             }
         }
 
+        /// <summary>
+        /// Handles the specified command.
+        /// </summary>
+        /// <param name="verb">The command verb.</param>
         public static void Handle(AuthorizeCIVerb verb) {
             string repo = GetRepo(verb);
             if (repo == null) {

@@ -34,7 +34,13 @@ using Com.Latipium.DevTools.Publishing;
 using Com.Latipium.DevTools.Versioning;
 
 namespace Com.Latipium.DevTools.Main {
+    /// <summary>
+    /// The command line entry point class.
+    /// </summary>
     public static class Entry {
+        /// <summary>
+        /// The directory for storing data files.
+        /// </summary>
         public static readonly string ShareDir =
 #if DEBUG
             Environment.CurrentDirectory
@@ -42,6 +48,9 @@ namespace Com.Latipium.DevTools.Main {
             Path.Combine(Environment.CurrentDirectory, "share")
 #endif
         ;
+        /// <summary>
+        /// The directory for storing configuration files.
+        /// </summary>
         public static readonly string EtcDir =
 #if DEBUG
             Environment.CurrentDirectory
@@ -49,6 +58,9 @@ namespace Com.Latipium.DevTools.Main {
             Path.Combine(Environment.CurrentDirectory, "etc")
 #endif
         ;
+        /// <summary>
+        /// The options to the program.
+        /// </summary>
         public static CommonOptions Options;
         internal static readonly Options RootOptions = new Options();
         private static readonly ILog Log = LogManager.GetLogger(typeof(Entry));
@@ -75,6 +87,11 @@ namespace Com.Latipium.DevTools.Main {
             return false;
         }
 
+        /// <summary>
+        /// The entry point of the program, where the program control starts and ends.
+        /// </summary>
+        /// <param name="args">The command-line arguments.</param>
+        /// <returns>The exit code that is given to the operating system after the program ends.</returns>
         public static int Main(string[] args) {
             bool success = false;
             try {
