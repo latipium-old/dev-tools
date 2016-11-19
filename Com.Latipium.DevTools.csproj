@@ -11,7 +11,7 @@
         <ReleaseVersion>1.0</ReleaseVersion>
         <Description>Tools needed for developing Latipium mods</Description>
         <TargetFrameworkProfile />
-        <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
         
         <OutputPath>bin/$(Configuration)</OutputPath>
         <ErrorReport>prompt</ErrorReport>
@@ -45,13 +45,13 @@
     
     <!-- MonoDevelop compatibility -->
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Prerelease' ">
-        <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     </PropertyGroup>
     
     <!-- Custom targets -->
