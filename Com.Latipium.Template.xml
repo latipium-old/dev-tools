@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- Default property values -->
+    <PropertyGroup>
+        <Platform>AnyCPU</Platform>
+        <AssemblyName>$(LatipiumNamespace)</AssemblyName>
+        <ReleaseVersion>1.0</ReleaseVersion>
+        <TargetFrameworkProfile />
+        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+        
+        <OutputPath>bin/$(Configuration)</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <ConsolePause>false</ConsolePause>
+    
+        <!-- Custom commands -->
+        <CustomCommands>
+            <CustomCommands>
+                <Command type="Custom" name="Authorize CI" command="$(SolutionDir)/packages/CommandWrapper.1.5/bin/command-wrapper.exe MONO_PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/:$(SolutionDir)/packages/GitSharp.0.3/lib/:$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/:$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/:$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/:$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/:$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/:$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/:$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/:$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/:$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/;$(SolutionDir)/packages/GitSharp.0.3/lib/;$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/;$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/;$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/;$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/;$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/;$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/;$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/;$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/;$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ WRAPPER_ASK=3 -- $(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/bin/Com.Latipium.DevTools.exe authorize -C $(SolutionDir) Please__enter__your__NuGet.org__API__key:" workingdir="$(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/" />
+            </CustomCommands>
+        </CustomCommands>
+    </PropertyGroup>
+    
+    <!-- Properties dependent on the configuration -->
+    <PropertyGroup Condition="'$(Configuration)' == ''">
+        <Configuration>Debug</Configuration>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+        <DefineConstants>DEBUG;BETA;</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Prerelease'">
+        <DefineConstants>RELEASE;BETA;</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <DefineConstants>RELEASE;REAL_RELEASE;</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Prerelease'">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Prerelease' Or '$(Configuration)' == 'Release'">
+        <Optimize>true</Optimize>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <DocumentationFile>bin/$(Configuration)/documentation.xml</DocumentationFile>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+    
+    <!-- Properties dependent on the target -->
+    <PropertyGroup Condition="'$(LatipiumTarget)' == 'Executable'">
+        <OutputType>Exe</OutputType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(LatipiumTarget)' != 'Executable'">
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+    
+    <!-- Custom targets -->
+    <UsingTask TaskName="commandwrapper.CommandTask" AssemblyFile="packages/CommandWrapper.1.5/bin/command-wrapper.exe" />
+    <Target Name="CalculateVersion" BeforeTargets="CoreCompile">
+        <CommandTask Command="MONO_PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/:$(SolutionDir)/packages/GitSharp.0.3/lib/:$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/:$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/:$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/:$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/:$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/:$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/:$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/:$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/:$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/;$(SolutionDir)/packages/GitSharp.0.3/lib/;$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/;$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/;$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/;$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/;$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/;$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/;$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/;$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/;$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ -- $(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/bin/Com.Latipium.DevTools.exe version -C $(SolutionDir) AssemblyVersion.cs" WorkingDirectory="$(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/" />
+    </Target>
+    <Target Name="CreatePackage" DependsOnTargets="Build" Condition=" '$(Configuration)' == 'Prerelease' Or '$(Configuration)' == 'Release' ">
+        <CommandTask Command="MONO_PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/:$(SolutionDir)/packages/GitSharp.0.3/lib/:$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/:$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/:$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/:$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/:$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/:$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/:$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/:$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/:$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/;$(SolutionDir)/packages/GitSharp.0.3/lib/;$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/;$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/;$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/;$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/;$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/;$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/;$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/;$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/;$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ -- $(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/bin/Com.Latipium.DevTools.exe package -C $(SolutionDir) -s app.nuspec -t $(Configuration)" WorkingDirectory="$(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/" />
+    </Target>
+    <Target Name="PublishPackage" DependsOnTargets="CreatePackage" Condition=" '$(Configuration)' == 'Prerelease' Or '$(Configuration)' == 'Release' ">
+        <CommandTask Command="MONO_PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/:$(SolutionDir)/packages/GitSharp.0.3/lib/:$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/:$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/:$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/:$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/:$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/:$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/:$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/:$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/:$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/;$(SolutionDir)/packages/GitSharp.0.3/lib/;$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/;$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/;$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/;$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/;$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/;$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/;$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/;$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/;$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ WRAPPER_ASK=5 -- $(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/bin/Com.Latipium.DevTools.exe publish -C $(SolutionDir) -d -k Please__enter__your__NuGet.org__API__key:" WorkingDirectory="$(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/" />
+    </Target>
+    <Target Name="CIBuild" DependsOnTargets="CreatePackage" Condition=" '$(Configuration)' == 'Prerelease' Or '$(Configuration)' == 'Release' ">
+        <CommandTask Command="MONO_PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/:$(SolutionDir)/packages/GitSharp.0.3/lib/:$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/:$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/:$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/:$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/:$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/:$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/:$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/:$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/:$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/;$(SolutionDir)/packages/GitSharp.0.3/lib/;$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/;$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/;$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/;$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/;$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/;$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/;$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/;$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/;$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ -- $(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/bin/Com.Latipium.DevTools.exe publish -C $(SolutionDir) -d" WorkingDirectory="$(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/" />
+    </Target>
+    
+    <!-- Include the C# project stuff -->
+    <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
