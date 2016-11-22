@@ -51,6 +51,12 @@ namespace Com.Latipium.DevTools.Authorizing {
             if (verb.ProjectId != null) {
                 return verb.ProjectId;
             }
+            if (File.Exists(verb.GitDir)) {
+                string content = File.ReadAllText(verb.GitDir).Replace("\n", "");
+                if (content.StartsWith("gitdir: ")) {
+                    verb.GitDir = content.Split(new char[] { ' ' }, 2)[1];
+                }
+            }
             Repository repo = new Repository(verb.GitDir);
             IEnumerable<string> repos = repo.Config
                 .Where(
