@@ -133,7 +133,7 @@ namespace Com.Latipium.DevTools.Refactoring {
                 repl.OldGuid = Guid.Parse(doc.GetElementsByTagName("ProjectGuid").Cast<XmlElement>().First().InnerText);
                 repl.NewGuid = Guid.NewGuid();
                 repl.LicenseUrl = string.Format("{0}/blob/master/LICENSE", repo.html_url);
-                repl.ProjectUrl = repo.homepage == null ? repo.html_url : repo.homepage;
+                repl.ProjectUrl = string.IsNullOrWhiteSpace(repo.homepage) ? repo.html_url : repo.homepage;
                 if (Log.IsDebugEnabled) {
                     Log.DebugFormat("Replacement data for {0}, {1}, AssemblyInfo.cs, app.nuspec, LICENSE, and README.md:", sln, csproj);
                     Log.DebugFormat("- Namespace:    {0} => {1}", repl.OldNamespace, repl.NewNamespace);
