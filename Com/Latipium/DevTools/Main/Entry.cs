@@ -31,6 +31,7 @@ using log4net.Config;
 using Com.Latipium.DevTools.Authorizing;
 using Com.Latipium.DevTools.Packaging;
 using Com.Latipium.DevTools.Publishing;
+using Com.Latipium.DevTools.Refactoring;
 using Com.Latipium.DevTools.Versioning;
 
 namespace Com.Latipium.DevTools.Main {
@@ -110,6 +111,8 @@ namespace Com.Latipium.DevTools.Main {
                         Publisher.Handle((PublishVerb) Options);
                     } else if (Options is AuthorizeCIVerb) {
                         Authorizer.Handle((AuthorizeCIVerb) Options);
+                    } else if (Options is RefactorVerb) {
+                        Refactorer.Handle((RefactorVerb) Options);
                     } else {
                         Log.Fatal("Internal Error");
                     }

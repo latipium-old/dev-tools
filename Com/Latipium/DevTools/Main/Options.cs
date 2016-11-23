@@ -85,6 +85,16 @@ namespace Com.Latipium.DevTools.Main {
         }
 
         /// <summary>
+        /// Gets or sets the refactor verb.
+        /// </summary>
+        /// <value>The refactor verb.</value>
+        [VerbOption("refactor", HelpText="Refactor the project template to use data specific to the project")]
+        public RefactorVerb RefactorVerb {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Com.Latipium.DevTools.Main.Options"/> class.
         /// </summary>
         public Options() {
@@ -93,6 +103,7 @@ namespace Com.Latipium.DevTools.Main {
             PackageVerb = new CreatePackageVerb();
             PublishVerb = new PublishVerb();
             AuthorizeVerb = new AuthorizeCIVerb();
+            RefactorVerb = new RefactorVerb();
         }
     }
 }

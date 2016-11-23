@@ -24,10 +24,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.IO;
 using System.Linq;
 using GitSharp;
 using log4net;
+using Com.Latipium.DevTools.Git;
 
 namespace Com.Latipium.DevTools.Versioning {
     /// <summary>
@@ -81,15 +81,7 @@ namespace Com.Latipium.DevTools.Versioning {
         /// </summary>
         /// <param name="gitDir">The git directory.</param>
         public GitVersion(string gitDir) {
-            if (File.Exists(gitDir)) {
-                string content = File.ReadAllText(gitDir).Replace("\n", "");
-                if (content.StartsWith("gitdir: ")) {
-                    string target = content.Split(new char[] { ' ' }, 2)[1];
-                    gitDir = Path.IsPathRooted(target) ? target : Path.Combine(gitDir, "..", target);
-                }
-            }
-            Repository repo = new Repository(gitDir);
-            Version = GetVersion(repo);
+            Version = GetVersion(gitDir.OpenRepository());
             Log.DebugFormat("Detected version {0}", Version);
         }
     }

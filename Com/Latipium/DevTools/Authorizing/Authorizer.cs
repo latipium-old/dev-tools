@@ -26,10 +26,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 using GitSharp;
 using log4net;
 using Newtonsoft.Json;
@@ -38,6 +36,7 @@ using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.OpenSsl;
 using YamlDotNet.Serialization;
+using Com.Latipium.DevTools.Git;
 using Com.Latipium.DevTools.Main;
 
 namespace Com.Latipium.DevTools.Authorizing {
@@ -51,36 +50,7 @@ namespace Com.Latipium.DevTools.Authorizing {
             if (verb.ProjectId != null) {
                 return verb.ProjectId;
             }
-            if (File.Exists(verb.GitDir)) {
-                string content = File.ReadAllText(verb.GitDir).Replace("\n", "");
-                if (content.StartsWith("gitdir: ")) {
-                    string target = content.Split(new char[] { ' ' }, 2)[1];
-                    verb.GitDir = Path.IsPathRooted(target) ? target : Path.Combine(verb.GitDir, "..", target);
-                }
-            }
-            Repository repo = new Repository(verb.GitDir);
-            IEnumerable<string> repos = repo.Config
-                .Where(
-                    cfg => Regex.IsMatch(cfg.Key, "^remote.[^.]+.url$") &&
-                    Regex.IsMatch(cfg.Value, "^(?:(?:https?|ssh)://)?(?:git@)?github(?:\\.com)?[/:]([^/]+/[^/]+)(?:\\.git)?$"))
-                .Select(
-                    cfg => Regex.Replace(cfg.Value, "^(?:(?:https?|ssh)://)?(?:git@)?github(?:\\.com)?[/:]([^/]+/[^/]+)(?:\\.git)?$", "$1"))
-                .Distinct();
-            switch (repos.Count()) {
-                case 0:
-                    Log.Fatal("Unable to determine GitHub repo url.");
-                    Log.Fatal("Try --repository=group/project");
-                    return null;
-                case 1:
-                    return repos.First();
-                default:
-                    Log.Fatal("Unable to determine GitHub repo url.");
-                    Log.Fatal("It seems there are multiple GitHub remotes:");
-                    foreach (string remote in repos) {
-                        Log.FatalFormat("- {0}", remote);
-                    }
-                    return null;
-            }
+            return verb.GitDir.OpenRepository().GetGitHubProject();
         }
 
         /// <summary>

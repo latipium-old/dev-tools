@@ -5,7 +5,7 @@
     <RootNamespace>Com.Latipium.DevTools</RootNamespace>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Custom" name="Authorize CI" command="$(SolutionDir)/packages/CommandWrapper.1.5/bin/command-wrapper.exe MONO_PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/:$(SolutionDir)/packages/GitSharp.0.3/lib/:$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/:$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/:$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/:$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/:$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/:$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/:$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/:$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/:$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/;$(SolutionDir)/packages/GitSharp.0.3/lib/;$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/;$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/;$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/;$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/;$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/;$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/;$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/;$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/;$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ WRAPPER_ASK=3 -- $(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/bin/Com.Latipium.DevTools.exe authorize -C $(ProjectDir) Please__enter__your__NuGet.org__API__key:" workingdir="$(SolutionDir)/packages/Com.Latipium.DevTools.1.1.10.232/" />
+        <Command type="Custom" name="Authorize CI" command="$(SolutionDir)/packages/CommandWrapper.1.5/bin/command-wrapper.exe MONO_PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/:$(SolutionDir)/packages/GitSharp.0.3/lib/:$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/:$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/:$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/:$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/:$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/:$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/:$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/:$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/:$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ PATH=$(SolutionDir)/packages/CommandLineParser.1.9.71/lib/net45/;$(SolutionDir)/packages/GitSharp.0.3/lib/;$(SolutionDir)/packages/log4net.2.0.5/lib/net45-full/;$(SolutionDir)/packages/Microsoft.Web.Xdt.2.1.1/lib/net40/;$(SolutionDir)/packages/Newtonsoft.Json.9.0.1/lib/net45/;$(SolutionDir)/packages/NuGet.Core.2.12.0/lib/net40-Client/;$(SolutionDir)/packages/SharpZipLib.0.86.0/lib/20/;$(SolutionDir)/packages/Tamir.SharpSSH.1.1.1.13/lib/;$(SolutionDir)/packages/Winterdom.IO.FileMap.2.0.2.0/lib/;$(SolutionDir)/packages/BouncyCastle.1.8.1/lib/;$(SolutionDir)/packages/YamlDotNet.4.0.0/lib/net35/ WRAPPER_ASK=3 -- $(SolutionDir)/packages/Com.Latipium.DevTools.1.1.27.2/bin/Com.Latipium.DevTools.exe authorize -C $(ProjectDir) Please__enter__your__NuGet.org__API__key:" workingdir="$(SolutionDir)/packages/Com.Latipium.DevTools.1.1.27.2/" />
       </CustomCommands>
     </CustomCommands>
     <LatipiumTarget>Executable</LatipiumTarget>
@@ -100,6 +100,13 @@
     <Compile Include="Com\Latipium\DevTools\Versioning\FileVersioner.cs" />
     <Compile Include="Com\Latipium\DevTools\Packaging\SpecTransformer.cs" />
     <Compile Include="Com\Latipium\DevTools\Authorizing\TravisPublicKey.cs" />
+    <Compile Include="Com\Latipium\DevTools\Main\RefactorVerb.cs" />
+    <Compile Include="Com\Latipium\DevTools\Refactoring\Refactorer.cs" />
+    <Compile Include="Com\Latipium\DevTools\Refactoring\UserResponse.cs" />
+    <Compile Include="Com\Latipium\DevTools\Refactoring\RepoResponse.cs" />
+    <Compile Include="Com\Latipium\DevTools\Refactoring\ReplacementData.cs" />
+    <Compile Include="Com\Latipium\DevTools\Refactoring\Replacements.cs" />
+    <Compile Include="Com\Latipium\DevTools\Git\GitExtensions.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
@@ -118,6 +125,8 @@
     <Folder Include="Com\Latipium\DevTools\Packaging\" />
     <Folder Include="Com\Latipium\DevTools\Publishing\" />
     <Folder Include="Com\Latipium\DevTools\Authorizing\" />
+    <Folder Include="Com\Latipium\DevTools\Refactoring\" />
+    <Folder Include="Com\Latipium\DevTools\Git\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="logging.xml">
