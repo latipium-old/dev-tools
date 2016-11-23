@@ -33,9 +33,17 @@ using GitSharp;
 using log4net;
 
 namespace Com.Latipium.DevTools.Git {
+    /// <summary>
+    /// Git extension methods.
+    /// </summary>
     public static class GitExtensions {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GitExtensions));
 
+        /// <summary>
+        /// Opens the git repository from a directory.
+        /// </summary>
+        /// <returns>The repository.</returns>
+        /// <param name="path">The repository path.</param>
         public static Repository OpenRepository(this string path) {
             if (File.Exists(path)) {
                 string content = File.ReadAllText(path).Replace("\n", "");
@@ -51,6 +59,11 @@ namespace Com.Latipium.DevTools.Git {
             });
         }
 
+        /// <summary>
+        /// Gets the GitHub project name.
+        /// </summary>
+        /// <returns>The GitHub project name.</returns>
+        /// <param name="repo">The repository.</param>
         public static string GetGitHubProject(this Repository repo) {
             IEnumerable<string> repos = repo.Config
                 .Where(

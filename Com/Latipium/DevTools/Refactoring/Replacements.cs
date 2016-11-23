@@ -138,6 +138,8 @@ namespace Com.Latipium.DevTools.Refactoring {
         /// <summary>
         /// Renames the solution and project files.
         /// </summary>
+        /// <param name="sln">The solution filename.</param>
+        /// <param name="csproj">The project filename.</param>
         /// <param name="repl">The replacement data.</param>
         public static void RenameFiles(string sln, string csproj, ReplacementData repl) {
             if (Path.GetFileNameWithoutExtension(sln) == repl.OldNamespace) {
