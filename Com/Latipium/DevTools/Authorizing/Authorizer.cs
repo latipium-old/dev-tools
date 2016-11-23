@@ -54,7 +54,8 @@ namespace Com.Latipium.DevTools.Authorizing {
             if (File.Exists(verb.GitDir)) {
                 string content = File.ReadAllText(verb.GitDir).Replace("\n", "");
                 if (content.StartsWith("gitdir: ")) {
-                    verb.GitDir = content.Split(new char[] { ' ' }, 2)[1];
+                    string target = content.Split(new char[] { ' ' }, 2)[1];
+                    verb.GitDir = Path.IsPathRooted(target) ? target : Path.Combine(verb.GitDir, "..", target);
                 }
             }
             Repository repo = new Repository(verb.GitDir);

@@ -84,7 +84,8 @@ namespace Com.Latipium.DevTools.Versioning {
             if (File.Exists(gitDir)) {
                 string content = File.ReadAllText(gitDir).Replace("\n", "");
                 if (content.StartsWith("gitdir: ")) {
-                    gitDir = content.Split(new char[] { ' ' }, 2)[1];
+                    string target = content.Split(new char[] { ' ' }, 2)[1];
+                    gitDir = Path.IsPathRooted(target) ? target : Path.Combine(gitDir, "..", target);
                 }
             }
             Repository repo = new Repository(gitDir);
